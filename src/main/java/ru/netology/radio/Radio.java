@@ -1,8 +1,28 @@
 package ru.netology.radio;
 
 public class Radio {
-    public int currentNumberStation;
-    public int currentVolumeRadio;
+
+    private int numberOfRadioStations = 10;
+    private int maxVolumeRadio = 100;
+    private int minVolumeRadio = 0;
+    private int currentNumberStation;
+    private int currentVolumeRadio;
+
+    public Radio(int numberOfRadioStations){
+        this.numberOfRadioStations = numberOfRadioStations;
+
+    }
+    public int getNumberOfRadioStations() {
+        return numberOfRadioStations;
+    }
+
+    public int getMaxVolumeRadio(){
+        return maxVolumeRadio;
+    }
+
+    public int getMinVolumeRadio(){
+        return minVolumeRadio;
+    }
 
     public int getCurrentNumberStation() {
         return currentNumberStation;
@@ -16,24 +36,24 @@ public class Radio {
         if (newCurrentNumberStation < 0) {
             return;
         }
-        if (newCurrentNumberStation > 9) {
-            newCurrentNumberStation = 9;
+        if (newCurrentNumberStation > numberOfRadioStations - 1) {
+            newCurrentNumberStation = numberOfRadioStations - 1;
         }
         currentNumberStation = newCurrentNumberStation;
     }
 
     public void setCurrentVolumeRadio(int newCurrentVolumeRadio) {
-        if (newCurrentVolumeRadio < 0) {
+        if (newCurrentVolumeRadio < minVolumeRadio) {
             return;
         }
-        if (newCurrentVolumeRadio > 10) {
-            newCurrentVolumeRadio = 10;
+        if (newCurrentVolumeRadio > maxVolumeRadio) {
+            newCurrentVolumeRadio = maxVolumeRadio;
         }
         currentVolumeRadio = newCurrentVolumeRadio;
     }
 
     public void nextStation() {                       // переключение на следующую станцию
-        if (currentNumberStation == 9) {
+        if (currentNumberStation == numberOfRadioStations - 1) {
             currentNumberStation = 0;
         } else {
             currentNumberStation = currentNumberStation + 1;
@@ -43,7 +63,7 @@ public class Radio {
 
     public void prevStation() {                       // переключение на предыдущую станцию
         if (currentNumberStation == 0) {
-            currentNumberStation = 9;
+            currentNumberStation = numberOfRadioStations - 1;
         } else {
             currentNumberStation = currentNumberStation - 1;
         }
@@ -52,13 +72,13 @@ public class Radio {
 
 
     public void decreaseVolume() {                    // уменьшение громкости на 1
-        if (currentVolumeRadio > 0) {
+        if (currentVolumeRadio > minVolumeRadio) {
             currentVolumeRadio = currentVolumeRadio - 1;
         }
     }
 
     public void increaseVolume() {                   // увеличение громкости на 1
-        if (currentVolumeRadio < 10) {
+        if (currentVolumeRadio < maxVolumeRadio) {
             currentVolumeRadio = currentVolumeRadio + 1;
         }
     }
